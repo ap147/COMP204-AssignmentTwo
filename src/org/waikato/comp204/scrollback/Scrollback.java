@@ -1,87 +1,71 @@
 package org.waikato.comp204.scrollback;
 
 import javax.lang.model.element.Element;
+import java.awt.image.AreaAveragingScaleFilter;
+import java.time.temporal.Temporal;
 
 /**
  * A String Scrollback implementation
  */
 public class Scrollback implements ScrollbackInterface
 {
+
+    private String LastAddedElement;
+    //Always pointing to the last element added
+    private int Arrayindex;
     private int elementsCount;
     private int elementsLimit;
-    private ElementNodes LastAddedElement = null;
+
+    private ElementNodes LastElement;
+    private ElementNodes FirstElement;
+
     private int ScrollCount = 0;
     public  Scrollback()
     {
         elementsLimit = 10;
+        Arrayindex = 0;
     }
     public  Scrollback(int amount)
     {
         elementsLimit = amount;
+        Arrayindex = 0;
     }
     @Override
     public void add(String item)
     {
-        boolean Duplicate = false;
-        //If there are elements , is this a duplicate
-        if(elementsCount !=0)
+        elementsCount++;
+        //if we are going over the limit, remove first element and add this one if item is not a duplicate
+        if(elementsCount > elementsLimit && item != LastElement.getElement())
         {
-            String LastAdded = LastAddedElement.getElement();
-            if(LastAdded == item)
-            {
-                Duplicate = true;
-            }
+            ElementNodes Temp = FirstElement;
+            FirstElement = FirstElement.getNext();
+            Temp.setNextNull();
         }
-        //if this is not a duplicate and limit is not reached
-        if(elementsLimit != elementsCount && !Duplicate)
+        if(elementsCount < elementsLimit)
         {
-            if(LastAddedElement == null)
-            {
-                LastAddedElement = new ElementNodes(item);
+            //If list is empty
+            if(FirstElement == null) {
+                FirstElement = new ElementNodes(item);
+                LastElement = FirstElement;
             }
             else
             {
-                LastAddedElement = LastAddedElement.AddElement(item);
+                LastElement = new ElementNodes(item);
             }
-            elementsCount++;
         }
-        //Limit must be reached or its a duplicate
-        else
-        {
-            //If its not a duplicate remove the first element and add this to last
-            if(!Duplicate)
-            {
-                LastAddedElement.RemoveFirstElement();
-                LastAddedElement = LastAddedElement.AddElement(item);
-            }
-            //Duplicate == do nothing
-        }
-        ScrollCount = 0;
+
     }
 
     @Override
     public String getLast()
     {
-        String WantedItem = "";
-        if(ScrollCount != 0)
-        {
-            if (ScrollCount == elementsCount) {
-                ScrollCount = 0;
-            }
 
-            ElementNodes WantedElement = LastAddedElement.GetElement(ScrollCount);
-            WantedItem = WantedElement.getElement();
-            ScrollCount++;
-        }
-
-        return WantedItem;
     }
 
     @Override
     public void clear()
     {
-        elementsCount = 0;
-        LastAddedElement = null;
+
     }
 
     @Override
@@ -114,32 +98,7 @@ class ElementNodes
         next = newElement;
         return next;
     }
-    public ElementNodes GetElement(int _index)
-    {
-        ElementNodes Current;
-        Current = this;
-        int index = _index;
-        while(index != 0)
-        {
-            Current = Current.getNext();
-        }
-        return Current;
-    }
-    public void RemoveFirstElement()
-    {
-        ElementNodes Current;
-        ElementNodes Next;
 
-        Current = this;
-        Next = Current.getNext();
-
-        while(Next.getNext() != null)
-        {
-            Current = Next;
-            Next = Next.getNext();
-        }
-        Current.setNextNull();
-    }
     public ElementNodes getNext()
     {
         return next;
@@ -152,16 +111,4 @@ class ElementNodes
     {
         return element;
     }
-
-
-
-
-
-
-
-
-
-
-
-
 }
