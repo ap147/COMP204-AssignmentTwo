@@ -22,6 +22,7 @@ public class Scrollback implements ScrollbackInterface
     public void add(String item)
     {
         boolean Duplicate = false;
+        //If there are elements , is this a duplicate
         if(elementsCount !=0)
         {
             String LastAdded = LastAddedElement.getElement();
@@ -30,6 +31,7 @@ public class Scrollback implements ScrollbackInterface
                 Duplicate = true;
             }
         }
+        //if this is not a duplicate and limit is not reached
         if(elementsLimit != elementsCount && !Duplicate)
         {
             if(LastAddedElement == null)
@@ -42,21 +44,34 @@ public class Scrollback implements ScrollbackInterface
             }
             elementsCount++;
         }
+        //Limit must be reached or its a duplicate
         else
         {
-
+            //If its not a duplicate remove the first element and add this to last
+            if(!Duplicate)
+            {
+                LastAddedElement.RemoveFirstElement();
+                LastAddedElement = LastAddedElement.AddElement(item);
+            }
+            //Duplicate == do nothing
         }
     }
 
     @Override
     public String getLast()
     {
+        if(elementsCount != 0)
+        {
+            String LastElemnt = LastAddedElement.getElement();
+            return LastElemnt;
+        }
         return null;
     }
 
     @Override
     public void clear()
     {
+        elementsCount = 0;
         LastAddedElement = null;
     }
 
@@ -90,9 +105,28 @@ class ElementNodes
         next = newElement;
         return next;
     }
+    public void RemoveFirstElement()
+    {
+        ElementNodes Current;
+        ElementNodes Next;
+
+        Current = this;
+        Next = Current.getNext();
+
+        while(Next.getNext() != null)
+        {
+            Current = Next;
+            Next = Next.getNext();
+        }
+        Current.setNextNull();
+    }
     public ElementNodes getNext()
     {
         return next;
+    }
+    public  ElementNodes setNextNull()
+    {
+        this.next = null;
     }
     public String getElement()
     {
