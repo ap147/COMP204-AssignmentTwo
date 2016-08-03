@@ -28,13 +28,6 @@ public class AssignmentTwo
                 scrollback = new Scrollback(scrollbackSize);
                 go = true;
             }
-            else if (input.hasNext())
-            {
-                System.out.println();
-                System.out.println("Please Enter A Number or else leave empty");
-                System.out.println();
-
-            }
             else
             {
                 scrollback = new Scrollback();
@@ -71,7 +64,6 @@ public class AssignmentTwo
                     System.out.println("Scrollback Reset");
                     System.out.println("Scrollback Capacity : " + scrollback.getCapacity());
                     System.out.println("Current Elements : " + scrollback.getCount());
-
                 }
                 else
                 {
