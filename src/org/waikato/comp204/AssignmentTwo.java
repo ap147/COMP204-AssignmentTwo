@@ -52,14 +52,19 @@ public class AssignmentTwo
             if (input.hasNext())
             {
                 UserInput = input.next();
-                System.out.println(UserInput);
                 if(UserInput.equals("exit"))
                 {
                     exit = true;
                 }
                 else if(UserInput.equals("show"))
                 {
-                    
+                    System.out.println("Scrollback Capacity : " + scrollback.getCapacity());
+                    System.out.println("Current Elements : " + scrollback.getCount());
+                    int x =0;
+                    while(x < scrollback.getCount())
+                    {
+                        System.out.println("* "+scrollback.getLast());
+                    }
                 }
             }
 
