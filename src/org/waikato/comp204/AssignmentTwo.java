@@ -33,6 +33,7 @@ public class AssignmentTwo
                 System.out.println();
                 System.out.println("Please Enter A Number or else leave empty");
                 System.out.println();
+
             }
             else
             {
@@ -61,6 +62,14 @@ public class AssignmentTwo
                     System.out.println("Scrollback Capacity : " + scrollback.getCapacity());
                     System.out.println("Current Elements : " + scrollback.getCount());
                     scrollback.dump();
+                }
+                else if(UserInput.equals("rst"))
+                {
+                    scrollback.clear();
+                    System.out.println("");
+                    System.out.println("Scrollback Reset");
+                    System.out.println("Scrollback Capacity : " + scrollback.getCapacity());
+                    System.out.println("Current Elements : " + scrollback.getCount());
 
                 }
                 else

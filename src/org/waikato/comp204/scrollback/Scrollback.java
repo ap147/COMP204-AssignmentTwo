@@ -29,17 +29,44 @@ public class Scrollback implements ScrollbackInterface
     public void add(String item)
     {
         System.out.println("Adding");
-        elementsCount++;
+        //elementsCount++;
 
         if(FirstElement == null)
         {
             FirstElement = new ElementNodes(item);
             LastElement = FirstElement;
-            getLastScrollCount = 0;
         }
         else {
+            if(!item.equals(LastElement.getElement()))
+            {
+                if(elementsCount < elementsLimit)
+                {
+                    ElementNodes Temp = LastElement.AddElement(item);
+                    LastElement = Temp;
+                }
+                else
+                {
+                    //Adding when loop is full
+                    //removing the head
+                    ElementNodes Temp = FirstElement.getNext();
+                    FirstElement.setNextNull();
+                    FirstElement = Temp;
 
+                    if(FirstElement == null)
+                    {
+                        FirstElement = new ElementNodes(item);
+                        LastElement = FirstElement;
+                    }
+                    else
+                    {
+                        Temp = LastElement.AddElement(item);
+                        LastElement = Temp;
+                    }
+                    elementsCount--;
+                }
 
+            }
+            /*
             if (!item.equals(LastElement.getElement())) {
                 //if we are going over the limit, remove first element and add this one if item is not a duplicate
                 if (elementsCount > elementsLimit) {
@@ -48,10 +75,15 @@ public class Scrollback implements ScrollbackInterface
                     FirstElement = FirstElement.getNext();
                     Temp.setNextNull();
                     getLastScrollCount = 0;
+                    System.out.println("First " +FirstElement.getElement());
+                    System.out.println("Last " + LastElement.getElement());
+                    elementsCount--;
                 }
                 if (elementsCount < elementsLimit) {
                     //Space Space Adding element
+                    System.out.println("Last Before " + LastElement.getElement());
                     LastElement = LastElement.AddElement(item);
+                    System.out.println("Last After " + LastElement.getElement());
                     getLastScrollCount = 0;
                 }
             } else {
@@ -59,7 +91,10 @@ public class Scrollback implements ScrollbackInterface
                 getLastScrollCount = 0;
                 System.out.println("Attempted to add Dumplicate!");
             }
+            */
         }
+        elementsCount++;
+        getLastScrollCount = 0;
     }
 
     @Override
@@ -84,14 +119,16 @@ public class Scrollback implements ScrollbackInterface
         ElementNodes Temp = FirstElement;
         for(int x =0; x < elementsCount; x++)
         {
-            System.out.println(Temp.getElement());
+            System.out.println(x +"  * " + Temp.getElement());
             Temp = Temp.getNext();
         }
     }
     @Override
     public void clear()
     {
-
+        elementsCount = 0;
+        FirstElement = null;
+        LastElement = null;
     }
 
     @Override
@@ -122,6 +159,7 @@ class ElementNodes
     {
         ElementNodes newElement = new ElementNodes(s);
         next = newElement;
+
         return next;
     }
 
