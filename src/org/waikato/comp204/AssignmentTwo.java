@@ -60,13 +60,8 @@ public class AssignmentTwo
                 {
                     System.out.println("Scrollback Capacity : " + scrollback.getCapacity());
                     System.out.println("Current Elements : " + scrollback.getCount());
-                    int x =0;
+                    scrollback.dump();
 
-                    while(x < scrollback.getCount())
-                    {
-                        System.out.println("* "+ scrollback.getLast());
-                        x++;
-                    }
                 }
                 else
                 {
