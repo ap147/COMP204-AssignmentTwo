@@ -40,27 +40,33 @@ public class AssignmentTwo
                 go = true;
             }
         }
+        //Create Scrollback !!!
         System.out.println("Created Scrollback of size "+ scrollback.getCapacity());
         System.out.println();
 
-        go = false;
+        boolean exit = false;
 
-        while(!go)
+        while(!exit)
         {
             String UserInput;
             if (input.hasNext())
             {
                 UserInput = input.next();
-                if(UserInput == "show")
+                System.out.println(UserInput);
+                if(UserInput.equals("exit"))
                 {
-
+                    exit = true;
                 }
-                else if(UserInput == "exit")
+                else if(UserInput.equals("show"))
                 {
-                    go = true;
+                    
                 }
             }
+
         }
+
+        System.out.println("AssignmentTwo Interactive Console Closed !");
+
 
     }
 }
