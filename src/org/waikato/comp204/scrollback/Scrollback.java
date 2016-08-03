@@ -10,6 +10,7 @@ public class Scrollback implements ScrollbackInterface
     private int elementsCount;
     private int elementsLimit;
     private ElementNodes LastAddedElement = null;
+    private int ScrollCount = 0;
     public  Scrollback()
     {
         elementsLimit = 10;
@@ -55,16 +56,22 @@ public class Scrollback implements ScrollbackInterface
             }
             //Duplicate == do nothing
         }
+        ScrollCount = 0;
     }
 
     @Override
     public String getLast()
     {
-        if(elementsCount != 0)
+        if(ScrollCount == elementsCount)
         {
-            String LastElemnt = LastAddedElement.getElement();
-            return LastElemnt;
+            ScrollCount = 0;
         }
+
+        ElementNodes WantedElement = LastAddedElement.GetElement(ScrollCount);
+        String WantedItem = WantedElement.getElement();
+        ScrollCount++;
+
+
         return null;
     }
 
@@ -105,6 +112,17 @@ class ElementNodes
         next = newElement;
         return next;
     }
+    public ElementNodes GetElement(int _index)
+    {
+        ElementNodes Current;
+        Current = this;
+        int index = _index;
+        while(index != 0)
+        {
+            Current = Current.getNext();
+        }
+        return Current;
+    }
     public void RemoveFirstElement()
     {
         ElementNodes Current;
@@ -124,7 +142,7 @@ class ElementNodes
     {
         return next;
     }
-    public  ElementNodes setNextNull()
+    public  void setNextNull()
     {
         this.next = null;
     }
