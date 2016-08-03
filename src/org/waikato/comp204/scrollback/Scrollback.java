@@ -62,17 +62,19 @@ public class Scrollback implements ScrollbackInterface
     @Override
     public String getLast()
     {
-        if(ScrollCount == elementsCount)
+        String WantedItem = "";
+        if(ScrollCount != 0)
         {
-            ScrollCount = 0;
+            if (ScrollCount == elementsCount) {
+                ScrollCount = 0;
+            }
+
+            ElementNodes WantedElement = LastAddedElement.GetElement(ScrollCount);
+            WantedItem = WantedElement.getElement();
+            ScrollCount++;
         }
 
-        ElementNodes WantedElement = LastAddedElement.GetElement(ScrollCount);
-        String WantedItem = WantedElement.getElement();
-        ScrollCount++;
-
-
-        return null;
+        return WantedItem;
     }
 
     @Override
