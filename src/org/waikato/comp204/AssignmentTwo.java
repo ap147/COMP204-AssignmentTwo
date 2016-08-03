@@ -62,6 +62,7 @@ public class AssignmentTwo
                     System.out.println("Scrollback Capacity : " + scrollback.getCapacity());
                     System.out.println("Current Elements : " + scrollback.getCount());
                     scrollback.dump();
+                    scrollback.dumpbygetLast();
                 }
                 else if(UserInput.equals("rst"))
                 {

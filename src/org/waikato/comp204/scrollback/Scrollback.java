@@ -15,7 +15,7 @@ public class Scrollback implements ScrollbackInterface
     private ElementNodes LastElement;
     private ElementNodes FirstElement;
 
-    private int  getLastScrollCount = 0;
+    private int  LastScrollCount = 0;
 
     public  Scrollback()
     {
@@ -94,24 +94,32 @@ public class Scrollback implements ScrollbackInterface
             */
         }
         elementsCount++;
-        getLastScrollCount = 0;
+        LastScrollCount = 0;
     }
 
     @Override
     public String getLast()
     {
-        ElementNodes Temp = null;
-        int TempCount = elementsCount - getLastScrollCount;
-        getLastScrollCount++;
-
-        ElementNodes Current = FirstElement;
-
-        for(int x = 0; x < TempCount; x++)
+        ElementNodes Temp = FirstElement;
+        System.out.println("Fire Element" + Temp.getElement());
+        int count = elementsCount - LastScrollCount;
+        for(int x = 1; x < count; x++)
         {
-            Current = FirstElement.getNext();
+            Temp = Temp.getNext();
+            System.out.println("Fire Element In loop" + Temp.getElement());
         }
-        return Current.getElement();
+        LastScrollCount++;
+        System.out.println(Temp.getElement());
+        return  Temp.getElement();
 
+    }
+    public void dumpbygetLast()
+    {
+        System.out.println("Starting Dumping through getLast()");
+        for(int x= 0; x < elementsCount; x++)
+        {
+            System.out.println(getLast());
+        }
     }
     public void dump()
     {
