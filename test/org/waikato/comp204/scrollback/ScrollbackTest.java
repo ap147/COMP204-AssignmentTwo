@@ -25,7 +25,10 @@ public class ScrollbackTest {
         Scrollback cB = new Scrollback(0);
         Scrollback cC = new Scrollback(-1);
         Scrollback cD = new Scrollback();
-
+        //cA = 5
+        //cB = 10
+        //cC = 10
+        //cD = 10
 
     }
 
@@ -33,21 +36,25 @@ public class ScrollbackTest {
     public void testAdd()
     {
         Scrollback aA = new Scrollback(5);
-        Scrollback aB = new Scrollback(0);
-        Scrollback aC = new Scrollback(-1);
-        Scrollback aD = new Scrollback();
+        aA.add("a");
+        aA.add("b");
+        aA.add("c");
+        aA.add("c");
+        aA.add("d");
 
-
-
+        int count = aA.getCount();
+        //Add 4 Items, on the 3th repeat that word and then unique , then check count ,it should be 4 instead of 5
+        assertEquals(4,count,0);
     }
 
 
     @Test
     public void testGetLastWhenNoElements()
     {
+        //What will happen when GetLast is called when no suitable elements avialable.
         Scrollback lwA = new Scrollback(5);
         String x = lwA.getLast();
-        String expected = null;
-
+        int count = lwA.getCount();
+        assertEquals("getLast is not returning a blank when no elements", x, "");
     }
 }
