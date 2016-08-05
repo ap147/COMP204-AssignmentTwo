@@ -80,11 +80,13 @@ public class AssignmentTwo
                         text  = scrollback.getLast();
                         if(x == UserInput.length())
                         {
-                            System.out.println(text);
                         }
                     }
-                    System.out.println(text);
-                    scrollback.add(text);
+                    if(text != "")
+                    {
+                        System.out.println(text);
+                        scrollback.add(text);
+                    }
 
                 }
             }

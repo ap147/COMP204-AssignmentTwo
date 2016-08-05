@@ -23,61 +23,59 @@ public class Scrollback implements ScrollbackInterface
     }
     public  Scrollback(int amount)
     {
-        elementsLimit = amount;
+        if(amount <= 0)
+        {
+            elementsLimit = 10;
+        }
+        else
+        {
+            elementsLimit = amount;
+        }
+
     }
     @Override
     public void add(String item)
     {
-        System.out.println("Adding");
-        //elementsCount++;
+        System.out.println("Added");
 
-        if(FirstElement == null)
-        {
-            FirstElement = new ElementNodes(item);
-            LastElement = FirstElement;
-        }
-        else {
-            if(!item.equals(LastElement.getElement()))
-            {
-                if(elementsCount < elementsLimit)
-                {
-                    ElementNodes Temp = LastElement.AddElement(item);
-                    LastElement = Temp;
-                }
-                else
-                {
-                    //Adding when loop is full
-                    //removing the head
-                    ElementNodes Temp = FirstElement.getNext();
-                    FirstElement.setNextNull();
-                    FirstElement = Temp;
-
-                    if(FirstElement == null)
-                    {
-                        FirstElement = new ElementNodes(item);
-                        LastElement = FirstElement;
-                    }
-                    else
-                    {
-                        Temp = LastElement.AddElement(item);
+        if(elementsCount < elementsLimit) {
+            if (FirstElement == null) {
+                FirstElement = new ElementNodes(item);
+                LastElement = FirstElement;
+            } else {
+                if (!item.equals(LastElement.getElement())) {
+                    if (elementsCount < elementsLimit) {
+                        ElementNodes Temp = LastElement.AddElement(item);
                         LastElement = Temp;
+                    } else {
+                        //Adding when loop is full
+                        //removing the head
+                        ElementNodes Temp = FirstElement.getNext();
+                        FirstElement.setNextNull();
+                        FirstElement = Temp;
+
+                        if (FirstElement == null) {
+                            FirstElement = new ElementNodes(item);
+                            LastElement = FirstElement;
+                        } else {
+                            Temp = LastElement.AddElement(item);
+                            LastElement = Temp;
+                        }
+                        elementsCount--;
                     }
+                } else {
                     elementsCount--;
                 }
+
             }
-            else
-            {
-                elementsCount--;
-            }
+            elementsCount++;
+            LastScrollCount = 0;
         }
-        elementsCount++;
-        LastScrollCount = 0;
     }
 
     @Override
     public String getLast()
     {
-
         if(elementsCount != 0)
         {
             ElementNodes Temp = FirstElement;
@@ -94,7 +92,7 @@ public class Scrollback implements ScrollbackInterface
         }
         else
         {
-            return null;
+            return "";
         }
 
     }
@@ -140,17 +138,16 @@ public class Scrollback implements ScrollbackInterface
 }
 
 
-class ElementNodes
-{
+ class ElementNodes {
     private String element;
     private ElementNodes next;
 
-    public ElementNodes(String _e)
+    protected ElementNodes(String _e)
     {
         element = _e;
     }
 
-    public ElementNodes AddElement(String s)
+    protected ElementNodes AddElement(String s)
     {
         ElementNodes newElement = new ElementNodes(s);
         next = newElement;
@@ -158,15 +155,15 @@ class ElementNodes
         return next;
     }
 
-    public ElementNodes getNext()
+    protected ElementNodes getNext()
     {
         return next;
     }
-    public  void setNextNull()
+    protected  void setNextNull()
     {
         this.next = null;
     }
-    public String getElement()
+    protected String getElement()
     {
         return element;
     }
