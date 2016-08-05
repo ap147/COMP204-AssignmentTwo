@@ -20,6 +20,11 @@ public class GenericScrollback<T> implements GenericScrollbackInterface<T> {
     public void add(T item) {
             System.out.println(item);
     }
+    public void show()
+    {
+        System.out.println("Scrollback Capacity : " + getCapacity());
+        System.out.println("Current Elements : " + getCount());
+    }
 
     @Override
     public T getLast(){

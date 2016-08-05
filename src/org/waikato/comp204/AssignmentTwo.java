@@ -1,4 +1,5 @@
 package org.waikato.comp204;
+import org.waikato.comp204.scrollback.GenericScrollback;
 import org.waikato.comp204.scrollback.Scrollback;
 
 import java.util.Scanner;
@@ -8,6 +9,7 @@ public class AssignmentTwo
     protected static String text;
     protected static Scrollback scrollback;
     protected static int scrollbackSize;
+
     public static void main(String[] args)
     {
         System.out.println("AssignmentTwo Interactive Console!");
@@ -19,9 +21,11 @@ public class AssignmentTwo
         System.out.println("    quit - Exit this console");
         System.out.println();
         System.out.println();
+
         Scanner input = new Scanner(System.in);
         boolean go = false;
-        while(!go) {
+        while(!go)
+        {
             System.out.println("Please enter a scrollback size (default = 10)");
             if (input.hasNextInt())
             {
@@ -35,12 +39,10 @@ public class AssignmentTwo
                 go = true;
             }
         }
-        //Create Scrollback !!!
         System.out.println("Created Scrollback of size "+ scrollback.getCapacity());
         System.out.println();
 
         boolean exit = false;
-
         while(!exit)
         {
             String UserInput;
@@ -58,17 +60,24 @@ public class AssignmentTwo
                 }
                 if(AmountOfDots != UserInput.length())
                 {
-                        if (UserInput.equals("exit")) {
+                        if (UserInput.equals("exit"))
+                        {
                             exit = true;
-                        } else if (UserInput.equals("show")) {
+                        }
+                        else if (UserInput.equals("show"))
+                        {
                             scrollback.Show();
-                        } else if (UserInput.equals("rst")) {
+                        }
+                        else if (UserInput.equals("rst"))
+                        {
                             scrollback.clear();
                             System.out.println("");
                             System.out.println("Scrollback Reset");
                             System.out.println("Scrollback Capacity : " + scrollback.getCapacity());
                             System.out.println("Current Elements : " + scrollback.getCount());
-                        } else {//------------- Program thinks " Amarjot Parmar" as two indivdual elements
+                        }
+                        else
+                        {
                             scrollback.add(UserInput);
                         }
                 }
@@ -89,11 +98,7 @@ public class AssignmentTwo
 
                 }
             }
-
         }
-
         System.out.println("AssignmentTwo Interactive Console Closed !");
-
-
     }
 }
