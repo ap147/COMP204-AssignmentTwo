@@ -47,27 +47,37 @@ public class AssignmentTwo
             {
                 UserInput = input.next();
                 int AmountOfDots = 0;
-                UserInput.match(/.).length;
-                System.out.println("xxxxxxxxx : " + UserInput.length());
-
-                if(AmountOfDots == 0) {
-                    if (UserInput.equals("exit")) {
-                        exit = true;
-                    } else if (UserInput.equals("show")) {
-                        System.out.println("Scrollback Capacity : " + scrollback.getCapacity());
-                        System.out.println("Current Elements : " + scrollback.getCount());
-                        scrollback.dump();
-                        scrollback.dumpbygetLast();
-                    } else if (UserInput.equals("rst")) {
-                        scrollback.clear();
-                        System.out.println("");
-                        System.out.println("Scrollback Reset");
-                        System.out.println("Scrollback Capacity : " + scrollback.getCapacity());
-                        System.out.println("Current Elements : " + scrollback.getCount());
-                    } else {//------------- Program thinks " Amarjot Parmar" as two indivdual elements
-                        scrollback.add(UserInput);
-                        System.out.println("Added.");
+                //Counting amount of Dots
+                for(int x = 0; x < UserInput.length(); x++)
+                {
+                    if(UserInput.charAt(x) ==  '.')
+                    {
+                        AmountOfDots++;
                     }
+                }
+                if(AmountOfDots != UserInput.length())
+                {
+                        if (UserInput.equals("exit")) {
+                            exit = true;
+                        } else if (UserInput.equals("show")) {
+                            System.out.println("Scrollback Capacity : " + scrollback.getCapacity());
+                            System.out.println("Current Elements : " + scrollback.getCount());
+                            scrollback.dump();
+                            scrollback.dumpbygetLast();
+                        } else if (UserInput.equals("rst")) {
+                            scrollback.clear();
+                            System.out.println("");
+                            System.out.println("Scrollback Reset");
+                            System.out.println("Scrollback Capacity : " + scrollback.getCapacity());
+                            System.out.println("Current Elements : " + scrollback.getCount());
+                        } else {//------------- Program thinks " Amarjot Parmar" as two indivdual elements
+                            scrollback.add(UserInput);
+                            System.out.println("Added.");
+                        }
+                }
+                else
+                {
+                    
                 }
             }
 
