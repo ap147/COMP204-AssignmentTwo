@@ -64,7 +64,10 @@ public class Scrollback implements ScrollbackInterface
                     }
                     elementsCount--;
                 }
-
+            }
+            else
+            {
+                elementsCount--;
             }
         }
         elementsCount++;
@@ -74,36 +77,43 @@ public class Scrollback implements ScrollbackInterface
     @Override
     public String getLast()
     {
-        ElementNodes Temp = FirstElement;
-        if(elementsCount == LastScrollCount)
-        {
-            LastScrollCount =0;
-        }
-        int count = elementsCount - LastScrollCount;
 
-        for(int x = 1; x < count; x++)
+        if(elementsCount != 0)
         {
-            Temp = Temp.getNext();
+            ElementNodes Temp = FirstElement;
+            if (elementsCount == LastScrollCount) {
+                LastScrollCount = 0;
+            }
+            int count = elementsCount - LastScrollCount;
+
+            for (int x = 1; x < count; x++) {
+                Temp = Temp.getNext();
+            }
+            LastScrollCount++;
+            return  Temp.getElement();
         }
-        LastScrollCount++;
-        return  Temp.getElement();
+        else
+        {
+            return null;
+        }
+
     }
-    public void dumpbygetLast()
+
+    public void Show()
     {
-        System.out.println("Starting Dumping through getLast() (will print 1 extra to show it loops back around");
-        for(int x= 0; x < elementsCount + 1; x++)
-        {
-            System.out.println(getLast());
-        }
+        System.out.println("Scrollback Capacity : " + getCapacity());
+        System.out.println("Current Elements : " + getCount());
+        LastScrollCount = 0;
+        dump();
     }
-    public void dump()
+    private void dump()
     {
         System.out.println();
         System.out.println("Starting Dumping");
         ElementNodes Temp = FirstElement;
         for(int x =0; x < elementsCount; x++)
         {
-            System.out.println(x +"  * " + Temp.getElement());
+            System.out.println(x+1 +"  * " + Temp.getElement());
             Temp = Temp.getNext();
         }
     }
@@ -111,6 +121,7 @@ public class Scrollback implements ScrollbackInterface
     public void clear()
     {
         elementsCount = 0;
+        LastScrollCount = 0;
         FirstElement = null;
         LastElement = null;
     }

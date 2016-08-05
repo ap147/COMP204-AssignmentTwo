@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 public class AssignmentTwo
 {
+    protected static String text;
     protected static Scrollback scrollback;
     protected static int scrollbackSize;
     public static void main(String[] args)
@@ -60,10 +61,7 @@ public class AssignmentTwo
                         if (UserInput.equals("exit")) {
                             exit = true;
                         } else if (UserInput.equals("show")) {
-                            System.out.println("Scrollback Capacity : " + scrollback.getCapacity());
-                            System.out.println("Current Elements : " + scrollback.getCount());
-                            scrollback.dump();
-                            scrollback.dumpbygetLast();
+                            scrollback.Show();
                         } else if (UserInput.equals("rst")) {
                             scrollback.clear();
                             System.out.println("");
@@ -77,7 +75,17 @@ public class AssignmentTwo
                 }
                 else
                 {
-                    
+                    for(int x = 0; x < UserInput.length(); x++)
+                    {
+                        text  = scrollback.getLast();
+                        if(x == UserInput.length())
+                        {
+                            System.out.println(text);
+                        }
+                    }
+                    System.out.println(text);
+                    scrollback.add(text);
+
                 }
             }
 
