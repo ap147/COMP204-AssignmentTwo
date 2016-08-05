@@ -21,29 +21,29 @@ public class Scrollback implements ScrollbackInterface
     {
         elementsLimit = 10;
     }
-    public  Scrollback(int amount)
+    public  Scrollback(int limit)
     {
-        if(amount <= 0)
+        if(limit <= 0)
         {
             elementsLimit = 10;
         }
         else
         {
-            elementsLimit = amount;
+            elementsLimit = limit;
         }
 
     }
     @Override
     public void add(String item)
     {
-        System.out.println("Added");
-
         if(elementsCount < elementsLimit) {
-            if (FirstElement == null) {
+            if (FirstElement == null && item !=null) {
                 FirstElement = new ElementNodes(item);
                 LastElement = FirstElement;
+                System.out.println("Added");
+
             } else {
-                if (!item.equals(LastElement.getElement())) {
+                if ((!item.equals(LastElement.getElement()) && item != null)) {
                     if (elementsCount < elementsLimit) {
                         ElementNodes Temp = LastElement.AddElement(item);
                         LastElement = Temp;
@@ -63,7 +63,9 @@ public class Scrollback implements ScrollbackInterface
                         }
                         elementsCount--;
                     }
-                } else {
+                    System.out.println("Added");
+                }
+                else {
                     elementsCount--;
                 }
 

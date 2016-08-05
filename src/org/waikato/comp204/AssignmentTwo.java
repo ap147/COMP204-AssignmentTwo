@@ -46,7 +46,7 @@ public class AssignmentTwo
             String UserInput;
             if (input.hasNext())
             {
-                UserInput = input.next();
+                UserInput = input.nextLine();
                 int AmountOfDots = 0;
                 //Counting amount of Dots
                 for(int x = 0; x < UserInput.length(); x++)
@@ -70,7 +70,6 @@ public class AssignmentTwo
                             System.out.println("Current Elements : " + scrollback.getCount());
                         } else {//------------- Program thinks " Amarjot Parmar" as two indivdual elements
                             scrollback.add(UserInput);
-                            System.out.println("Added.");
                         }
                 }
                 else
