@@ -46,29 +46,28 @@ public class AssignmentTwo
             if (input.hasNext())
             {
                 UserInput = input.next();
-                if(UserInput.equals("exit"))
-                {
-                    exit = true;
-                }
-                else if(UserInput.equals("show"))
-                {
-                    System.out.println("Scrollback Capacity : " + scrollback.getCapacity());
-                    System.out.println("Current Elements : " + scrollback.getCount());
-                    scrollback.dump();
-                    scrollback.dumpbygetLast();
-                }
-                else if(UserInput.equals("rst"))
-                {
-                    scrollback.clear();
-                    System.out.println("");
-                    System.out.println("Scrollback Reset");
-                    System.out.println("Scrollback Capacity : " + scrollback.getCapacity());
-                    System.out.println("Current Elements : " + scrollback.getCount());
-                }
-                else
-                {
-                    scrollback.add(UserInput);
-                    System.out.println("Added.");
+                int AmountOfDots = 0;
+                UserInput.match(/.).length;
+                System.out.println("xxxxxxxxx : " + UserInput.length());
+
+                if(AmountOfDots == 0) {
+                    if (UserInput.equals("exit")) {
+                        exit = true;
+                    } else if (UserInput.equals("show")) {
+                        System.out.println("Scrollback Capacity : " + scrollback.getCapacity());
+                        System.out.println("Current Elements : " + scrollback.getCount());
+                        scrollback.dump();
+                        scrollback.dumpbygetLast();
+                    } else if (UserInput.equals("rst")) {
+                        scrollback.clear();
+                        System.out.println("");
+                        System.out.println("Scrollback Reset");
+                        System.out.println("Scrollback Capacity : " + scrollback.getCapacity());
+                        System.out.println("Current Elements : " + scrollback.getCount());
+                    } else {//------------- Program thinks " Amarjot Parmar" as two indivdual elements
+                        scrollback.add(UserInput);
+                        System.out.println("Added.");
+                    }
                 }
             }
 
