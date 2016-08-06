@@ -11,10 +11,11 @@ public class Scrollback implements ScrollbackInterface
 {
     private int elementsCount;
     private int elementsLimit;
-
+    //This is always the last String that is added to list, replaced everytime when string is added , except if string is a duplicate of this
     private ElementNodes LastElement;
+    //This is always the first thing that is added to list, removed and replaced when history limit is reached
     private ElementNodes FirstElement;
-
+    //Keeps count on how many times getLast was called, resets when element is added,clear or show is called
     private int  LastScrollCount = 0;
 
     public  Scrollback()
@@ -33,6 +34,9 @@ public class Scrollback implements ScrollbackInterface
         }
 
     }
+
+
+   // Takes a String to add to history
     @Override
     public void add(String item)
     {
@@ -55,6 +59,7 @@ public class Scrollback implements ScrollbackInterface
     }
     private void AddSecound(String item)
     {
+        //If this is not a duplicate
         if (!item.equals(LastElement.getElement()))
         {
             if (elementsCount < elementsLimit) {
@@ -68,8 +73,10 @@ public class Scrollback implements ScrollbackInterface
             }
         }
     }
+    //Called to add when history limit is reached, deleted the fist item in list and adds this to last item
     private void AddingWhenFull(String item)
     {
+
         ElementNodes Temp = FirstElement.getNext();
         FirstElement.setNextNull();
         FirstElement = Temp;
@@ -84,6 +91,9 @@ public class Scrollback implements ScrollbackInterface
             LastElement = Temp;
         }
     }
+
+    //Returns the last item added to history, multiple calls one after another result in looping through
+    // and round the list
     @Override
     public String getLast()
     {
@@ -106,7 +116,7 @@ public class Scrollback implements ScrollbackInterface
             return "";
         }
     }
-
+    //Prints basic information amount class, Capacity, Limit and what it has stored
     public void Show()
     {
         System.out.println("Scrollback Capacity : " + getCapacity());
@@ -124,7 +134,7 @@ public class Scrollback implements ScrollbackInterface
             Temp = Temp.getNext();
         }
     }
-
+    //Resets state of class except the limit
     @Override
     public void clear()
     {
@@ -147,7 +157,7 @@ public class Scrollback implements ScrollbackInterface
     }
 }
 
-
+//Class used to keep track of elements
 class ElementNodes {
     private String element;
     private ElementNodes next;

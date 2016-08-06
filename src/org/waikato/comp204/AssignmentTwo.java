@@ -6,31 +6,21 @@ import java.util.Scanner;
 
 public class AssignmentTwo
 {
-   // protected static String text;
-    protected static String text;
 
-    //protected static Scrollback scrollback;
+    //History class
     protected static GenericScrollback GenericScrollback;
-
+    //Amount of elements stored in History class
     protected static int scrollbackSize;
 
     public static void main(String[] args)
     {
-        System.out.println("AssignmentTwo Interactive Console!");
-        System.out.println("Type Items follows by return to add them to the scrollback.");
-        System.out.println("Special commands: ");
-        System.out.println("    .    - Retrieve & add last command. Multiple periods will look back further in the scroll back");
-        System.out.println("    show - Print details about scrollback");
-        System.out.println("    rst  - Reset the scrollback");
-        System.out.println("    quit - Exit this console");
-        System.out.println();
-        System.out.println();
+        UsageMessage();
 
         Scanner input = new Scanner(System.in);
         boolean go = false;
+        //loop until user has selected history size
         while(!go)
         {
-            System.out.println("Please enter a scrollback size (default = 10)");
             if (input.hasNextInt())
             {
                 scrollbackSize = input.nextInt();
@@ -62,6 +52,7 @@ public class AssignmentTwo
                         AmountOfDots++;
                     }
                 }
+                //If user has only entered dots then we want to skip this and retrive from history
                 if(AmountOfDots != UserInput.length())
                 {
                         if (UserInput.equals("exit"))
@@ -82,22 +73,18 @@ public class AssignmentTwo
                         }
                         else
                         {
-                            System.out.println("Adding How it should be added");
                             GenericScrollback.add(UserInput);
                         }
                 }
                 else
                 {
+                    //Going back in history , printing value out and adding it back to history
                     for(int x = 0; x < UserInput.length(); x++)
                     {
                         GenericScrollback.getLast();
-                        if(x == UserInput.length())
-                        {
-                        }
                     }
                     if(GenericScrollback.getLastValue() != null & GenericScrollback.getLastValue() !=null)
                     {
-                        System.out.println(GenericScrollback.getLastValue());
                         GenericScrollback.add(GenericScrollback.getLastValue());
                     }
 
@@ -105,5 +92,20 @@ public class AssignmentTwo
             }
         }
         System.out.println("AssignmentTwo Interactive Console Closed !");
+    }
+
+    private static void UsageMessage()
+    {
+        System.out.println();
+        System.out.println("AssignmentTwo Interactive Console!");
+        System.out.println("Type Items follows by return to add them to the scrollback.");
+        System.out.println("Special commands: ");
+        System.out.println("    .    - Retrieve & add last command. Multiple periods will look back further in the scroll back");
+        System.out.println("    show - Print details about scrollback");
+        System.out.println("    rst  - Reset the scrollback");
+        System.out.println("    quit - Exit this console");
+        System.out.println();
+        System.out.println();
+        System.out.println("Please enter a scrollback size (default = 10)");
     }
 }

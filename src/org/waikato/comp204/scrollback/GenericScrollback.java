@@ -12,11 +12,10 @@ public class GenericScrollback<T> implements GenericScrollbackInterface<T> {
 
     private ElementNodes LastElement;
     private ElementNodes FirstElement;
-
+    //Stores what value was last retrived using getLast
     private T    LastOneValue;
+    //Keeps count on how many times getLast was called, resets when element is added,clear or show is called
     private int  LastScrollCount = 0;
-
-    List myList = new ArrayList();
 
     public GenericScrollback()
     {
@@ -33,6 +32,7 @@ public class GenericScrollback<T> implements GenericScrollbackInterface<T> {
             elementsLimit = limit;
         }
     }
+    // Takes a T to add to history
     @Override
     public void add(T item)
     {
@@ -56,6 +56,7 @@ public class GenericScrollback<T> implements GenericScrollbackInterface<T> {
     }
     private void AddSecound(T item)
     {
+        //If this is not a duplicate
         if (!item.equals(LastElement.getElement()))
         {
             if (elementsCount < elementsLimit) {
@@ -69,6 +70,7 @@ public class GenericScrollback<T> implements GenericScrollbackInterface<T> {
             }
         }
     }
+    //Called to add when history limit is reached, deleted the fist item in list and adds this to last item
     private void AddingWhenFull(T item)
     {
         ElementNodes Temp = FirstElement.getNext();
@@ -85,6 +87,7 @@ public class GenericScrollback<T> implements GenericScrollbackInterface<T> {
             LastElement = Temp;
         }
     }
+    //Prints basic information amount class, Capacity, Limit and what it has stored
     public void Show()
     {
         System.out.println("Scrollback Capacity : " + getCapacity());
@@ -98,7 +101,8 @@ public class GenericScrollback<T> implements GenericScrollbackInterface<T> {
         return LastOneValue;
     }
 
-
+    //Returns the last item added to history, multiple calls one after another result in looping through
+    // and round the list
     public T getLast()
     {
         if(elementsCount != 0)
