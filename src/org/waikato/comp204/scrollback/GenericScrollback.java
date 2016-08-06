@@ -1,5 +1,8 @@
 package org.waikato.comp204.scrollback;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * A Generic Scrollback implementation
  */
@@ -7,6 +10,10 @@ public class GenericScrollback<T> implements GenericScrollbackInterface<T> {
     private int elementsCount;
     private int elementsLimit;
 
+    private T LastElement;
+    private T FirstElement;
+
+    List myList = new ArrayList();
 
     public GenericScrollback()
     {
@@ -14,7 +21,14 @@ public class GenericScrollback<T> implements GenericScrollbackInterface<T> {
     }
     public GenericScrollback(int limit)
     {
-        elementsLimit = limit;
+        if(limit <= 0)
+        {
+            elementsLimit = 10;
+        }
+        else
+        {
+            elementsLimit = limit;
+        }
     }
     @Override
     public void add(T item) {

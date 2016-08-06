@@ -12,6 +12,7 @@ import static org.junit.Assert.*;
 public class ScrollbackTest {
     public static void main(String[] args)
     {
+
     }
     /*
     Exactly 10 tests covering your String Scrollback implementation written in the ScrollbackTest file.

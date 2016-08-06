@@ -82,7 +82,6 @@ public class Scrollback implements ScrollbackInterface
         {
             Temp = LastElement.AddElement(item);
             LastElement = Temp;
-            System.out.println("Adding When limit is full");
         }
     }
     @Override
@@ -119,7 +118,6 @@ public class Scrollback implements ScrollbackInterface
     private void dump()
     {
         System.out.println();
-        System.out.println("Starting Dumping");
         ElementNodes Temp = FirstElement;
         for(int x =0; x < elementsCount; x++)
         {
