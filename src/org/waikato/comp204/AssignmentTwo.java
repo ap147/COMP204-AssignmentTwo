@@ -6,8 +6,12 @@ import java.util.Scanner;
 
 public class AssignmentTwo
 {
+   // protected static String text;
     protected static String text;
-    protected static Scrollback scrollback;
+
+    //protected static Scrollback scrollback;
+    protected static GenericScrollback GenericScrollback;
+
     protected static int scrollbackSize;
 
     public static void main(String[] args)
@@ -30,16 +34,16 @@ public class AssignmentTwo
             if (input.hasNextInt())
             {
                 scrollbackSize = input.nextInt();
-                scrollback = new Scrollback(scrollbackSize);
+                GenericScrollback = new GenericScrollback(scrollbackSize);
                 go = true;
             }
             else
             {
-                scrollback = new Scrollback();
+                GenericScrollback = new GenericScrollback();
                 go = true;
             }
         }
-        System.out.println("Created Scrollback of size "+ scrollback.getCapacity());
+        System.out.println("Created Scrollback of size "+ GenericScrollback.getCapacity());
         System.out.println();
 
         boolean exit = false;
@@ -66,36 +70,35 @@ public class AssignmentTwo
                         }
                         else if (UserInput.equals("show"))
                         {
-                            scrollback.Show();
+                            GenericScrollback.Show();
                         }
                         else if (UserInput.equals("rst"))
                         {
-                            scrollback.clear();
+                            GenericScrollback.clear();
                             System.out.println("");
                             System.out.println("Scrollback Reset");
-                            System.out.println("Scrollback Capacity : " + scrollback.getCapacity());
-                            System.out.println("Current Elements : " + scrollback.getCount());
+                            System.out.println("Scrollback Capacity : " + GenericScrollback.getCapacity());
+                            System.out.println("Current Elements : " + GenericScrollback.getCount());
                         }
                         else
                         {
                             System.out.println("Adding How it should be added");
-                            scrollback.add(UserInput);
+                            GenericScrollback.add(UserInput);
                         }
                 }
                 else
                 {
                     for(int x = 0; x < UserInput.length(); x++)
                     {
-                        text  = scrollback.getLast();
+                        GenericScrollback.getLast();
                         if(x == UserInput.length())
                         {
                         }
                     }
-                    if(text != "" & text !=null)
+                    if(GenericScrollback.getLastValue() != null & GenericScrollback.getLastValue() !=null)
                     {
-                        System.out.println("Adding How it shouldnt be added");
-                        System.out.println(text);
-                        scrollback.add(text);
+                        System.out.println(GenericScrollback.getLastValue());
+                        GenericScrollback.add(GenericScrollback.getLastValue());
                     }
 
                 }

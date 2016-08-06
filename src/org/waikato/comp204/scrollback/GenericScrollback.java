@@ -10,8 +10,11 @@ public class GenericScrollback<T> implements GenericScrollbackInterface<T> {
     private int elementsCount;
     private int elementsLimit;
 
-    private T LastElement;
-    private T FirstElement;
+    private ElementNodes LastElement;
+    private ElementNodes FirstElement;
+
+    private T    LastOneValue;
+    private int  LastScrollCount = 0;
 
     List myList = new ArrayList();
 
@@ -31,20 +34,104 @@ public class GenericScrollback<T> implements GenericScrollbackInterface<T> {
         }
     }
     @Override
-    public void add(T item) {
-            System.out.println(item);
+    public void add(T item)
+    {
+        if (FirstElement == null && item !=null)
+        {
+            AddFirst(item);
+        }
+        else
+        {
+            AddSecound(item);
+        }
+        LastScrollCount = 0;
+
     }
-    public void show()
+    private void AddFirst(T item)
+    {
+        FirstElement = new ElementNodes(item);
+        LastElement = FirstElement;
+        elementsCount++;
+
+    }
+    private void AddSecound(T item)
+    {
+        if (!item.equals(LastElement.getElement()))
+        {
+            if (elementsCount < elementsLimit) {
+                ElementNodes Temp = LastElement.AddElement(item);
+                LastElement = Temp;
+                elementsCount++;
+            }
+            else
+            {
+                AddingWhenFull(item);
+            }
+        }
+    }
+    private void AddingWhenFull(T item)
+    {
+        ElementNodes Temp = FirstElement.getNext();
+        FirstElement.setNextNull();
+        FirstElement = Temp;
+
+        if (FirstElement == null) {
+            FirstElement = new ElementNodes(item);
+            LastElement = FirstElement;
+        }
+        else
+        {
+            Temp = LastElement.AddElement(item);
+            LastElement = Temp;
+        }
+    }
+    public void Show()
     {
         System.out.println("Scrollback Capacity : " + getCapacity());
         System.out.println("Current Elements : " + getCount());
+        LastScrollCount = 0;
+        dump();
     }
 
-    @Override
-    public T getLast(){
-        return null;
+    public T getLastValue()
+    {
+        return LastOneValue;
     }
 
+
+    public T getLast()
+    {
+        if(elementsCount != 0)
+        {
+            ElementNodes Temp = FirstElement;
+            if (elementsCount == LastScrollCount) {
+                LastScrollCount = 0;
+            }
+            int count = elementsCount - LastScrollCount;
+
+            for (int x = 1; x < count; x++) {
+                Temp = Temp.getNext();
+            }
+            LastScrollCount++;
+            LastOneValue = Temp.getElement();
+            return  LastOneValue;
+        }
+        else
+        {
+            return null;
+        }
+
+    }
+    private void dump()
+    {
+        System.out.println();
+        ElementNodes Temp = FirstElement;
+        for(int x =0; x < elementsCount; x++)
+        {
+            System.out.println(x+1 +"  * " + Temp.getElement());
+            Temp = Temp.getNext();
+        }
+    }
     @Override
     public void clear() {
         elementsLimit = 0;
@@ -60,4 +147,37 @@ public class GenericScrollback<T> implements GenericScrollbackInterface<T> {
     public int getCount() {
         return elementsCount;
     }
+
+
+    class ElementNodes {
+        private T element;
+        private ElementNodes next;
+
+        protected ElementNodes(T _e)
+        {
+            element = _e;
+        }
+
+        protected ElementNodes AddElement(T s)
+        {
+            ElementNodes newElement = new ElementNodes(s);
+            next = newElement;
+
+            return next;
+        }
+
+        protected ElementNodes getNext()
+        {
+            return next;
+        }
+        protected  void setNextNull()
+        {
+            this.next = null;
+        }
+        protected T getElement()
+        {
+            return element;
+        }
+    }
 }
+
