@@ -18,7 +18,27 @@ public class ScrollbackTest {
     Try to test the class as thoroughly as you can with your 10 tests,
     the grade allocation will take into account how thoroughly your tests cover the functionality.
      */
+    @Test
+    public void testGetLastRollMultipleTimer()
+    {
+        Scrollback x = new Scrollback();
 
+        x.add("a");
+        x.add("b");
+        x.add("c");
+        x.add("d");
+        x.add("e");
+        x.add("f");
+
+        assertEquals("First Call to getLast was invalid",x.getLast(),"f");
+        x.add("f");
+        String last = x.getLast();
+        last = x.getLast();
+        last = x.getLast();
+        assertEquals("Rolling through invalid",last,"d");
+        x.add("d");
+        assertEquals("Shouldve been a value which was just added",x.getLast(), "d");
+    }
     @Test
     public void testConstuctors()
     {
