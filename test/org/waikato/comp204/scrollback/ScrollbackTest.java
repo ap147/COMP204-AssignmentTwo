@@ -29,7 +29,10 @@ public class ScrollbackTest {
         //cB = 10
         //cC = 10
         //cD = 10
-
+        assertEquals("cA should have capcity of 5 since 5 was passed through parametter in constructor", cA.getCapacity(), 5);
+        assertEquals("cB should have capcity of 10 since invalid value (0) was passed through parametter ",cB.getCapacity(),10);
+        assertEquals("cC should have capacity of 10 since invaild value (-1) was passed through parametter",cC.getCapacity(),10);
+        assertEquals("cD Should have capacity of 10 since default constructor is called", cD.getCapacity(), 10);
     }
 
     @Test
