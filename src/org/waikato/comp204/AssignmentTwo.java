@@ -78,6 +78,7 @@ public class AssignmentTwo
                         }
                         else
                         {
+                            System.out.println("Adding How it should be added");
                             scrollback.add(UserInput);
                         }
                 }
@@ -90,8 +91,9 @@ public class AssignmentTwo
                         {
                         }
                     }
-                    if(text != "")
+                    if(text != "" & text !=null)
                     {
+                        System.out.println("Adding How it shouldnt be added");
                         System.out.println(text);
                         scrollback.add(text);
                     }

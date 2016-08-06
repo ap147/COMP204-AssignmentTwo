@@ -140,7 +140,7 @@ public class Scrollback implements ScrollbackInterface
 }
 
 
- class ElementNodes {
+class ElementNodes {
     private String element;
     private ElementNodes next;
 

@@ -2,6 +2,7 @@ package org.waikato.comp204.scrollback;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.omg.IOP.CodecPackage.FormatMismatch;
 
 import static org.junit.Assert.*;
 
@@ -59,5 +60,26 @@ public class ScrollbackTest {
         String x = lwA.getLast();
         int count = lwA.getCount();
         assertEquals("getLast is not returning a blank when no elements", x, "");
+    }
+
+    @Test
+    public void testGetLastRollover()
+    {
+        Scrollback gl = new Scrollback(3);
+        gl.add("a");
+        gl.add("b");
+        gl.add("c");
+
+        gl.getLast();
+        gl.getLast();
+        gl.getLast();
+        String Fourthelement = gl.getLast();
+        System.out.println(Fourthelement);
+    }
+
+    @Test
+    public void testLastRolloverAdd()
+    {
+
     }
 }
