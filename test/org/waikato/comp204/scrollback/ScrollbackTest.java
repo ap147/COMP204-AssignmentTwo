@@ -71,7 +71,6 @@ public class ScrollbackTest {
         assertEquals(4,count,0);
     }
 
-
     @Test
     public void testGetLastWhenNoElements()
     {
@@ -179,5 +178,39 @@ public class ScrollbackTest {
         Lc.add("a");
         Lc.add("b");
         assertEquals("Didnt Add element when capacity is only one", Lc.getLast(), "b");
+    }
+    @Test
+    public void testHighCapacity()
+    {
+        //This will go through all the add methods and confirm they all working correctly
+        Scrollback Lc = new Scrollback(23);
+        Lc.add("a");
+        Lc.add("b");
+        Lc.add("a");
+        Lc.add("b");
+        Lc.add("a");
+        Lc.add("b");
+        Lc.add("a");
+        Lc.add("b");
+        Lc.add("a");
+        Lc.add("b");
+        Lc.add("a");
+        Lc.add("b");
+        Lc.add("a");
+        Lc.add("b");
+        Lc.add("a");
+        Lc.add("b");
+        Lc.add("a");
+        Lc.add("b");
+        Lc.add("a");
+        Lc.add("b");
+        Lc.add("a");
+        Lc.add("b");
+        Lc.add("a");
+        Lc.add("b");
+
+        int Size = Lc.getCount();
+        assertEquals("amount of elements is not right",Size,23);
+        assertEquals("This element was not added last", Lc.getLast(), "b");
     }
 }
