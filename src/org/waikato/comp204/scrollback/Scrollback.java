@@ -36,11 +36,9 @@ public class Scrollback implements ScrollbackInterface
     @Override
     public void add(String item)
     {
-        System.out.println(0);
         if (FirstElement == null && item !=null)
         {
             AddFirst(item);
-
         }
         else
         {
@@ -50,23 +48,19 @@ public class Scrollback implements ScrollbackInterface
     }
     private void AddFirst(String item)
     {
-        System.out.println(1);
         FirstElement = new ElementNodes(item);
         LastElement = FirstElement;
-        System.out.println("Adding First Element");
         elementsCount++;
 
     }
     private void AddSecound(String item)
     {
-        System.out.println(2);
         if (!item.equals(LastElement.getElement()))
         {
             if (elementsCount < elementsLimit) {
                 ElementNodes Temp = LastElement.AddElement(item);
                 LastElement = Temp;
                 elementsCount++;
-                System.out.println("Adding To Last");
             }
             else
             {
@@ -76,7 +70,6 @@ public class Scrollback implements ScrollbackInterface
     }
     private void AddingWhenFull(String item)
     {
-        System.out.println(3);
         ElementNodes Temp = FirstElement.getNext();
         FirstElement.setNextNull();
         FirstElement = Temp;
