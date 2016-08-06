@@ -44,15 +44,12 @@ public final class PokemonEncounter {
             if (((PokemonEncounter)object).x != this.x) {
                 return false;
             }
-
             if (((PokemonEncounter)object).y != this.y) {
                 return false;
             }
-
             if (((PokemonEncounter)object).pokemon != this.pokemon) {
                 return false;
             }
-
             return true;
         }
         return false;

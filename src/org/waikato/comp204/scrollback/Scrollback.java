@@ -105,7 +105,6 @@ public class Scrollback implements ScrollbackInterface
         {
             return "";
         }
-
     }
 
     public void Show()

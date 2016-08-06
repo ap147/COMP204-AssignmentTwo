@@ -1,6 +1,8 @@
 package org.waikato.comp204.scrollback;
 
+import org.junit.Assert;
 import org.junit.Test;
+import org.waikato.comp204.misc.Pokemon;
 import org.waikato.comp204.misc.PokemonEncounter;
 
 import static org.junit.Assert.*;
@@ -14,10 +16,29 @@ public class GenericScrollbackTest {
 
     }
     /*
-    Exactly 10 tests covering your String Scrollback implementation written in the ScrollbackTest file.
-    Try to test the class as thoroughly as you can with your 10 tests,
-    the grade allocation will take into account how thoroughly your tests cover the functionality.
+    Exactly 12 tests covering your Generic Scrollback implementation written in the GenericScrollbackTest file.
+    10 of the tests should be reimplementations of the tests written for the String Scrollback,
+    while the remaining 2 should test using the provided PokemonEncounter class.
      */
+    @Test
+    public void testPokemonExcounterEquals()
+    {
+        PokemonEncounter pa = new PokemonEncounter(8,8, Pokemon.Seel);
+        PokemonEncounter pb = new PokemonEncounter(10,10, Pokemon.Abra);
+
+        assertEquals("Compared Abra with Seel, they are not same pokemon", pa.equals(pb), false);
+        assertEquals("Compared Seel with Seel, they are same pokemon", pa.equals(pa), true);
+    }
+    @Test
+    public void testPokemonhashCodeEqual()
+    {
+        PokemonEncounter pa = new PokemonEncounter(8,8, Pokemon.Seel);
+
+        int x = pa.hashCode();
+        int y = pa.hashCode();
+
+        assertEquals("Two Same pokemon should have same hashcode", y, x);
+    }
     @Test
     public void testGetLastRollMultipleTimer()
     {
