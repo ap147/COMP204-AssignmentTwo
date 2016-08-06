@@ -134,8 +134,9 @@ public class GenericScrollback<T> implements GenericScrollbackInterface<T> {
     }
     @Override
     public void clear() {
-        elementsLimit = 0;
         elementsCount = 0;
+        FirstElement = null;
+        LastElement = null;
     }
 
     @Override

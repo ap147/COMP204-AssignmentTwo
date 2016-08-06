@@ -60,7 +60,7 @@ public class GenericScrollbackTest {
     @Test
     public void testAdd()
     {
-        Scrollback aA = new Scrollback(5);
+        GenericScrollback aA = new GenericScrollback(5);
         aA.add("a");
         aA.add("b");
         aA.add("c");
@@ -76,16 +76,14 @@ public class GenericScrollbackTest {
     public void testGetLastWhenNoElements()
     {
         //What will happen when GetLast is called when no suitable elements avialable.
-        Scrollback lwA = new Scrollback(5);
-        String x = lwA.getLast();
-        int count = lwA.getCount();
-        assertEquals("getLast is not returning a blank when no elements", x, "");
+        GenericScrollback lwA = new GenericScrollback(5);
+        assertEquals("getLast is not returning a blank when no elements", lwA.getLast(), null);
     }
 
     @Test
     public void testGetLastRollover()
     {
-        Scrollback gl = new Scrollback(3);
+        GenericScrollback gl = new GenericScrollback(3);
         gl.add("a");
         gl.add("b");
         gl.add("c");
@@ -93,14 +91,13 @@ public class GenericScrollbackTest {
         gl.getLast();
         gl.getLast();
         gl.getLast();
-        String Fourthelement = gl.getLast();
-        assertEquals("Not rolling around the list", Fourthelement, "c");
+        assertEquals("Not rolling around the list", gl.getLast(), "c");
     }
 
     @Test
     public void testOverAll()
     {
-        Scrollback Oa = new Scrollback(15);
+        GenericScrollback Oa = new GenericScrollback(15);
         Oa.add("test");
         Oa.add("bob");
         Oa.add("Geoff");
@@ -110,15 +107,15 @@ public class GenericScrollbackTest {
         assertEquals("Not Having Correct amount of Capacity", Oa.getCapacity(), 15);
         assertEquals("Not Having Correct amount of Count", Oa.getCount(), 4);
 
-        String Last = Oa.getLast();
-        assertEquals("Not returning correct last element", Last, "COMP204");
-        Oa.add(Last);
+
+        assertEquals("Not returning correct last element", Oa.getLast(), "COMP204");
+        Oa.add(Oa.getLastValue());
         Oa.Show();
-        Last = Oa.getLast();
-        Last = Oa.getLast();
-        Last = Oa.getLast();
-        Oa.add(Last);
-        assertEquals("Didnt Return correct last element", Last, "bob");
+        Oa.getLast();
+        Oa.getLast();
+        Oa.getLast();
+        Oa.add(Oa.getLastValue());
+        assertEquals("Didnt Return correct last element", Oa.getLastValue(), "bob");
         Oa.Show();
         assertEquals("Didnt Return correct ElementCount", Oa.getCount(), 5);
 
@@ -131,30 +128,31 @@ public class GenericScrollbackTest {
     public void testLastRolloverAdd()
     {
         //testing that program is rolling around list and adding at the same time when limited capacity
-        Scrollback gLR = new Scrollback(3);
+        GenericScrollback gLR = new GenericScrollback(3);
 
         gLR.add("a");
         gLR.add("b");
         gLR.add("c");
         //c
-        String x = gLR.getLast();
-        gLR.add(x);
-        assertEquals("Not rolling adding correctly", x, "c");
+        gLR.getLast();
+        gLR.add(gLR.getLastValue());
+        assertEquals("Not rolling adding correctly", gLR.getLastValue(), "c");
         gLR.Show();
 
         //b
-        x = gLR.getLast();
-        x = gLR.getLast();
-        gLR.add(x);
-        assertEquals("Not rolling adding correctly", x, "b");
+        gLR.getLast();
+        gLR.getLast();
+        gLR.add(gLR.getLastValue());
+        assertEquals("Not rolling adding correctly", gLR.getLastValue(), "b");
         gLR.Show();
 
         //b
-        x = gLR.getLast();
-        x = gLR.getLast();
-        x = gLR.getLast();
-        gLR.add(x);
-        assertEquals("Not rolling adding correctly", x, "b");
+        gLR.getLast();
+        gLR.getLast();;
+        gLR.getLast();
+
+        gLR.add(gLR.getLastValue());
+        assertEquals("Not rolling adding correctly", gLR.getLastValue(), "b");
         gLR.Show();
         //List should have b,c,b
     }
@@ -162,7 +160,7 @@ public class GenericScrollbackTest {
     @Test
     public void testAddingReseting()
     {
-        Scrollback Ar = new Scrollback();
+        GenericScrollback Ar = new GenericScrollback();
         Ar.add("1");
         Ar.add("2");
 
@@ -175,7 +173,7 @@ public class GenericScrollbackTest {
     @Test
     public void testLowCapacity()
     {
-        Scrollback Lc = new Scrollback(1);
+        GenericScrollback Lc = new GenericScrollback(1);
         Lc.add("a");
         Lc.add("b");
         assertEquals("Didnt Add element when capacity is only one", Lc.getLast(), "b");
@@ -184,7 +182,7 @@ public class GenericScrollbackTest {
     public void testHighCapacity()
     {
         //This will go through all the add methods and confirm they all working correctly
-        Scrollback Lc = new Scrollback(23);
+        GenericScrollback Lc = new GenericScrollback(23);
         Lc.add("a");
         Lc.add("b");
         Lc.add("a");
