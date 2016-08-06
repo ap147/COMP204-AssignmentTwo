@@ -74,12 +74,90 @@ public class ScrollbackTest {
         gl.getLast();
         gl.getLast();
         String Fourthelement = gl.getLast();
-        System.out.println(Fourthelement);
+        assertEquals("Not rolling around the list", Fourthelement, "c");
+    }
+
+    @Test
+    public void testOverAll()
+    {
+        Scrollback Oa = new Scrollback(15);
+        Oa.add("test");
+        Oa.add("bob");
+        Oa.add("Geoff");
+        Oa.add("COMP204");
+        Oa.Show();
+
+        assertEquals("Not Having Correct amount of Capacity", Oa.getCapacity(), 15);
+        assertEquals("Not Having Correct amount of Count", Oa.getCount(), 4);
+
+        String Last = Oa.getLast();
+        assertEquals("Not returning correct last element", Last, "COMP204");
+        Oa.add(Last);
+        Oa.Show();
+        Last = Oa.getLast();
+        Last = Oa.getLast();
+        Last = Oa.getLast();
+        Oa.add(Last);
+        assertEquals("Didnt Return correct last element", Last, "bob");
+        Oa.Show();
+        assertEquals("Didnt Return correct ElementCount", Oa.getCount(), 5);
+
+        Oa.clear();
+        assertEquals("Should have no elements since just used clear()", Oa.getCount(), 0);
+
     }
 
     @Test
     public void testLastRolloverAdd()
     {
+        //testing that program is rolling around list and adding at the same time when limited capacity
+        Scrollback gLR = new Scrollback(3);
 
+        gLR.add("a");
+        gLR.add("b");
+        gLR.add("c");
+        //c
+        String x = gLR.getLast();
+        gLR.add(x);
+        assertEquals("Not rolling adding correctly", x, "c");
+        gLR.Show();
+
+        //b
+        x = gLR.getLast();
+        x = gLR.getLast();
+        gLR.add(x);
+        assertEquals("Not rolling adding correctly", x, "b");
+        gLR.Show();
+
+        //b
+        x = gLR.getLast();
+        x = gLR.getLast();
+        x = gLR.getLast();
+        gLR.add(x);
+        assertEquals("Not rolling adding correctly", x, "b");
+        gLR.Show();
+        //List should have b,c,b
+    }
+
+    @Test
+    public void testAddingReseting()
+    {
+        Scrollback Ar = new Scrollback();
+        Ar.add("1");
+        Ar.add("2");
+
+        Ar.clear();
+        assertEquals("Count/Limit should be 0 while Capacity is 10", Ar.getCount(), 0);
+        Ar.add("1");
+        Ar.add("2");
+        assertEquals("Count/Limit should be 2 while Capacity is 10", Ar.getCount(), 2);
+    }
+    @Test
+    public void testLowCapacity()
+    {
+        Scrollback Lc = new Scrollback(1);
+        Lc.add("a");
+        Lc.add("b");
+        assertEquals("Didnt Add element when capacity is only one", Lc.getLast(), "b");
     }
 }
